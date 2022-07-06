@@ -28,17 +28,17 @@
                 showNewUserOnScreen(obj)
             }
 
-            // window.addEventListener("DOMContentLoaded", () => {
-            //     const localStorageObj = localStorage;
-            //     const localstoragekeys  = Object.keys(localStorageObj)
+            window.addEventListener("DOMContentLoaded", () => {
+                const localStorageObj = localStorage;
+                const localstoragekeys  = Object.keys(localStorageObj)
 
-            //     for(var i =0; i< localstoragekeys.length; i++){
-            //         const key = localstoragekeys[i]
-            //         const userDetailsString = localStorageObj[key];
-            //         const userDetailsObj = JSON.parse(userDetailsString);
-            //         showNewUserOnScreen(userDetailsObj)
-            //     }
-            // })
+                for(var i =0; i< localstoragekeys.length; i++){
+                    const key = localstoragekeys[i]
+                    const userDetailsString = localStorageObj[key];
+                    const userDetailsObj = JSON.parse(userDetailsString);
+                    showNewUserOnScreen(userDetailsObj)
+                }
+            })
 
             function showNewUserOnScreen(user){
                 const parentNode = document.getElementById('listOfUsers');
