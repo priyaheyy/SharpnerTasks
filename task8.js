@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //delete event
 itemList.addEventListener('click', removeItem);
 
@@ -34,3 +35,23 @@ if(confirm('Are You Sure?')){
 }
 }
 }
+=======
+var filter=document.getElementById('filter');
+filter.addEventListener('keyup', filterItems)
+function filterItems(e){
+    e.preventDefault();
+    var text=e.target.value.toLowerCase();  //convert text to lower case
+    var items=itemList.getElementsByTagName('li');  //getting all the li's
+    var itemsDescription=itemList.getElementsByClassName('itemDes');
+    
+    Array.from(items).forEach(function(item){  //convert to an Array
+        var itemName=item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text)!=-1){
+            item.style.display='block';
+        }else{
+            item.style.display='none';
+        }
+        
+    })
+}
+>>>>>>> a37f2d3 (task8 file added)
