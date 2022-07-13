@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script>
+class student {
+            static count = 0;
+
+            constructor(name, age, phoneNumber, boardMarks) {
+                this.name = name;
+                this.age = age;
+                this.phoneNumber = phoneNumber;
+                this.boardMarks = boardMarks;
+                student.count++;
+            }
+            static printNumberOfStudents() {
+                console.log('Number of students = ' + student.count);
+            }
+
+            checkEligibility() {
+                if (this.boardMarks > 40)
+                    console.log('eligible');
+                else
+                    console.log('not eligible');
+            }
+
+
+            eligibleForPlacements(minBoardMarks) {
+
+
+               
+
+                let arrowFunction = (minAge) => {
+
+                    if (this.age >= minAge && this.boardMarks > minBoardMarks)
+                        return true;
+                    else
+                        return false;
+                }
+                    return arrowFunction(21);
+
+            }
+        }
+
+
+        const stud=[];
+         stud[1] = new student("John", 23, 12345, 68);   //creating object  
+         stud[2] = new student("jelli", 20, 23456, 34);
+         stud[3] = new student("ram", 21, 34567, 89);
+         stud[4] = new student("shyam", 22, 45678, 45);
+         stud[5] = new student("preity", 20, 56779, 96);
+         stud[6] = new student("prena", 20, 45635, 79);
+        student.printNumberOfStudents();
+ 
+
+      for(let i=1;i<=student.count;i++){
+        if(stud[i].eligibleForPlacements(55)===true){
+            console.log(stud[i].name);
+        }
+
+      }
+
+
+
+    </script>
+</head>
+
+</html>
