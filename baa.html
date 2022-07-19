@@ -1,0 +1,220 @@
+<html>
+
+
+<body>
+    <h1>Booking Appointment App</h1>
+    <form onsubmit="saveToLocalStorage(event)">
+        <label> Name</label>
+        <input id='username' type="text" name="username" required />
+        <label> EmailId</label>
+        <input id='email' type="email" name="emailId" required />
+        <label> Phone Number</label>
+        <input id='phonenumber' type="tel" name="phonenumber" />
+        <button> Submit </button>
+    </form>
+    <ul id='listOfUsers'></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script>
+        function saveToLocalStorage(event) {
+            event.preventDefault();
+            const name = event.target.username.value;
+            const email = event.target.emailId.value;
+            const phonenumber = event.target.phonenumber.value;
+            // localStorage.setItem('name', name);
+            // localStorage.setItem('email', email);
+            // localStorage.setItem('phonenumber', phonenumber)
+            const obj = {
+                name,
+                email,
+                phonenumber
+            }
+
+            axios.post("https://crudcrud.com/api/bda781a372864c5796c526ab771c3fd/appointmentData",obj)
+            .then((response)=>{
+                showNewUserOnScreen(response.data)
+                //console.log(response)
+            })
+            .catch((err)=>{
+                document.body.innerHTML=document.body.innerHTML+"<h4>Something went wrong</h4>"
+                //console.log(err)
+            })
+               //doing network call , through post sending data from front end to backend
+            //localStorage.setItem(obj.email, JSON.stringify(obj))
+
+          // showNewUserOnScreen(obj)
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const localStorageObj = localStorage;
+            const localstoragekeys = Object.keys(localStorageObj)
+
+            for (var i = 0; i < localstoragekeys.length; i++) {
+                const key = localstoragekeys[i]
+                const userDetailsString = localStorageObj[key];
+                const userDetailsObj = JSON.parse(userDetailsString);
+                showNewUserOnScreen(userDetailsObj)
+            }
+        })
+
+        function showNewUserOnScreen(user) {
+            document.getElementById('email').value = '';
+            document.getElementById('username').value = '';
+            document.getElementById('phonenumber').value = '';
+
+            const parentNode = document.getElementById('listOfUsers');
+            const childHTML = `<li id=${user.email}> ${user.name} - ${user.email}
+                                            <button onclick=deleteUser('${user.email}')> Delete User </button>
+                                            <button onclick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}')>Edit User </button>
+                                         </li>`
+
+            parentNode.innerHTML = parentNode.innerHTML + childHTML;
+        }
+
+        //Edit User
+
+        function editUserDetails(emailId, name, phonenumber) {
+
+            document.getElementById('email').value = emailId;
+            document.getElementById('username').value = name;
+            document.getElementById('phonenumber').value = phonenumber;
+
+            deleteUser(emailId)
+        }
+
+        // deleteUser('abc@gmail.com')
+
+        function deleteUser(emailId) {
+            localStorage.removeItem(emailId);
+            removeUserFromScreen(emailId);
+
+        }
+
+        function removeUserFromScreen(emailId) {
+            const parentNode = document.getElementById('listOfUsers');
+            const childNodeToBeDeleted = document.getElementById(emailId);
+            if (childNodeToBeDeleted) {
+                parentNode.removeChild(childNodeToBeDeleted)
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<html>
+    <body>
+        <form  onsubmit="saveToLocalStorage(event)">
+            <label> Name</label>
+            <input id='username' type="text" name="username"  required/>
+            <label> EmailId</label>
+            <input id='email' type="email" name="emailId"  required/>
+            <label> Phone Number</label>
+            <input id='phonenumber' type="tel" name="phonenumber" />
+            <button class="btn"> Submit </button>
+        </form>
+        <ul id='listOfUsers'></ul> <!--Parent Node-->
+
+<!-- <script>
+            function saveToLocalStorage(event) {
+                event.preventDefault();
+                const name = event.target.username.value;
+                const email = event.target.emailId.value;
+                const phonenumber = event.target.phonenumber.value;
+                // localStorage.setItem('name', name);
+                // localStorage.setItem('email', email);
+                // localStorage.setItem('phonenumber', phonenumber)
+                const obj = {
+                    name,
+                    email,
+                    phonenumber
+                }
+                localStorage.setItem(obj.email, JSON.stringify(obj));
+                showNewUserOnScreen(obj);
+            }
+
+        function showNewUserOnScreen(obj){
+            const parentNode=document.getElementById('listOfUsers');
+            const childNode=document.createElement('li');
+            const temp=JSON.parse(localStorage.getItem(obj.email));
+            childNode.innerHTML='<button>Delete User</button>';
+            childNode.innerText= temp.email + '--'+ temp.name;
+            
+
+            parentNode.appendChild(childNode);
+
+        }
+
+            window.addEventListener("DOMContentLoaded", () => {
+                const localStorageObj = localStorage;
+                const localstoragekeys  = Object.keys(localStorageObj)
+                
+
+                for(var i =0; i< localstoragekeys.length; i++){
+                    const key = localstoragekeys[i]
+                    const userDetailsString = localStorageObj[key];
+                    const userDetailsObj = JSON.parse(userDetailsString);
+                    showNewUserOnScreen(obj);
+                }
+            }) -->
+
+
+
+
+
+
+
+
+<!--
+        </script>
+
+
+    </body>
+</html>
+-->
+
+
+
+
+
+
+
+
+
+<!--
+setItem - is used to add items to local storage
+        - takes 2 parameter (key, value)
+
+
+
+
+-->
